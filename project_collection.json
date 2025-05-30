@@ -1,0 +1,399 @@
+{
+	"info": {
+		"_postman_id": "19138ceb-3f94-4a0b-b6c3-af230fc81342",
+		"name": "Project Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13505953",
+		"_collection_link": "https://test-team-4073.postman.co/workspace/API-Testing-Lab~cf67b250-b5fe-43be-9113-8a0f377ad0fd/collection/13505953-19138ceb-3f94-4a0b-b6c3-af230fc81342?action=share&source=collection_link&creator=13505953"
+	},
+	"item": [
+		{
+			"name": "List of Leagues for a Country",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"if (pm.response.code === 200) {\r",
+							"    pm.test(\"Verify the structure of the response\", function () {\r",
+							"        pm.expect(jsonData).to.have.property(\"get\");\r",
+							"        pm.expect(jsonData.get).to.be.a(\"string\");\r",
+							"        pm.expect(jsonData).to.have.property(\"parameters\");\r",
+							"        pm.expect(jsonData.parameters).to.have.property(\"country\");\r",
+							"        pm.expect(jsonData.parameters.country).to.be.a(\"string\");\r",
+							"        pm.expect(jsonData).to.have.property(\"errors\");\r",
+							"        pm.expect(jsonData.errors).to.be.an(\"array\");\r",
+							"        pm.expect(jsonData).to.have.property(\"results\");\r",
+							"        pm.expect(jsonData.results).to.be.a(\"number\");\r",
+							"        pm.expect(jsonData).to.have.property(\"paging\");\r",
+							"        pm.expect(jsonData.paging).to.have.property(\"current\");\r",
+							"        pm.expect(jsonData.paging.current).to.be.a(\"number\");\r",
+							"        pm.expect(jsonData.paging).to.have.property(\"total\");\r",
+							"        pm.expect(jsonData.paging.total).to.be.a(\"number\");\r",
+							"        pm.expect(jsonData).to.have.property(\"response\");\r",
+							"        pm.expect(jsonData.response).to.be.an(\"array\");\r",
+							"        if (jsonData.response.length > 0) {\r",
+							"            jsonData.response.forEach((item) => {\r",
+							"                pm.expect(item).to.have.property(\"league\");\r",
+							"                pm.expect(item.league).to.have.property(\"id\");\r",
+							"                pm.expect(item.league.id).to.be.a(\"number\");\r",
+							"                pm.expect(item.league).to.have.property(\"name\");\r",
+							"                pm.expect(item.league.name).to.be.a(\"string\");\r",
+							"                pm.expect(item.league).to.have.property(\"type\");\r",
+							"                pm.expect(item.league.type).to.be.a(\"string\");\r",
+							"                pm.expect(item.league).to.have.property(\"logo\");\r",
+							"                pm.expect(item.league.logo).to.be.a(\"string\");\r",
+							"                pm.expect(item.league.logo).to.match(/^https:\\/\\/.*\\.png$/)\r",
+							"                pm.expect(item).to.have.property(\"country\");\r",
+							"                pm.expect(item.country).to.have.property(\"name\");\r",
+							"                pm.expect(item.country.name).to.be.a(\"string\");\r",
+							"                pm.expect(item.country).to.have.property(\"code\");\r",
+							"                pm.expect(item.country.code).to.be.a(\"string\");\r",
+							"                pm.expect(item.country.code).to.match(/^[A-Z]{2}$/);\r",
+							"                pm.expect(item.country).to.have.property(\"flag\");\r",
+							"                pm.expect(item.country.flag).to.be.a(\"string\");\r",
+							"                pm.expect(item.country.flag).to.match(/^https:\\/\\/.*\\.svg$/);\r",
+							"                pm.expect(item).to.have.property(\"seasons\");\r",
+							"                pm.expect(item.seasons).to.be.an(\"array\");\r",
+							"                pm.expect(item.seasons.length).to.be.greaterThan(0);\r",
+							"                item.seasons.forEach((s) => {\r",
+							"                    pm.expect(s).to.have.property(\"year\");\r",
+							"                    pm.expect(s.year).to.be.a(\"number\");\r",
+							"                    pm.expect(s).to.have.property(\"start\");\r",
+							"                    pm.expect(s.start).to.be.a(\"string\");\r",
+							"                    pm.expect(s.start).to.match(/^\\d{4}-\\d{2}-\\d{2}$/);\r",
+							"                    pm.expect(s).to.have.property(\"end\");\r",
+							"                    pm.expect(s.end).to.be.a(\"string\");\r",
+							"                    pm.expect(s.end).to.match(/^\\d{4}-\\d{2}-\\d{2}$/);\r",
+							"                    pm.expect(s).to.have.property(\"current\");\r",
+							"                    pm.expect(s.current).to.be.a(\"boolean\");\r",
+							"                    pm.expect(s).to.have.property(\"coverage\");\r",
+							"                    pm.expect(s.coverage).to.have.property(\"fixtures\");\r",
+							"                    pm.expect(s.coverage.fixtures).to.have.property(\"events\");\r",
+							"                    pm.expect(s.coverage.fixtures.events).to.be.a(\"boolean\");\r",
+							"                    pm.expect(s.coverage.fixtures).to.have.property(\"lineups\");\r",
+							"                    pm.expect(s.coverage.fixtures.lineups).to.be.a(\"boolean\");\r",
+							"                    pm.expect(s.coverage.fixtures).to.have.property(\"statistics_fixtures\");\r",
+							"                    pm.expect(s.coverage.fixtures.statistics_fixtures).to.be.a(\"boolean\");\r",
+							"                    pm.expect(s.coverage.fixtures).to.have.property(\"statistics_players\");\r",
+							"                    pm.expect(s.coverage.fixtures.statistics_players).to.be.a(\"boolean\");\r",
+							"                    pm.expect(s.coverage).to.have.property(\"standings\");\r",
+							"                    pm.expect(s.coverage.standings).to.be.a(\"boolean\");\r",
+							"                    pm.expect(s.coverage).to.have.property(\"players\");\r",
+							"                    pm.expect(s.coverage.players).to.be.a(\"boolean\");\r",
+							"                    pm.expect(s.coverage).to.have.property(\"top_scorers\");\r",
+							"                    pm.expect(s.coverage.top_scorers).to.be.a(\"boolean\");\r",
+							"                    pm.expect(s.coverage).to.have.property(\"top_assists\");\r",
+							"                    pm.expect(s.coverage.top_assists).to.be.a(\"boolean\");\r",
+							"                    pm.expect(s.coverage).to.have.property(\"top_cards\");\r",
+							"                    pm.expect(s.coverage.top_cards).to.be.a(\"boolean\");\r",
+							"                    pm.expect(s.coverage).to.have.property(\"injuries\");\r",
+							"                    pm.expect(s.coverage.injuries).to.be.a(\"boolean\");\r",
+							"                    pm.expect(s.coverage).to.have.property(\"predictions\");\r",
+							"                    pm.expect(s.coverage.predictions).to.be.a(\"boolean\");\r",
+							"                    pm.expect(s.coverage).to.have.property(\"odds\");\r",
+							"                    pm.expect(s.coverage.odds).to.be.a(\"boolean\");\r",
+							"                });\r",
+							"            });\r",
+							"        }\r",
+							"    });\r",
+							"\r",
+							"    pm.test(\"Verify the response parameter matches what was sent\", function () {\r",
+							"        pm.expect(jsonData.parameters.country).to.eql(pm.environment.get(\"country\"));\r",
+							"    });\r",
+							"\r",
+							"    pm.test(\"Verify the number of results equals the length of the response array\", function () {\r",
+							"        pm.expect(jsonData.results).to.eql(jsonData.response.length);\r",
+							"    });\r",
+							"} else if (pm.response.code === 204) {\r",
+							"    pm.test(\"Verify the structure of the response\", function () {\r",
+							"        pm.expect(jsonData).to.have.property(\"get\");\r",
+							"        pm.expect(jsonData.get).to.be.a(\"string\");\r",
+							"        pm.expect(jsonData).to.have.property(\"parameters\");\r",
+							"        pm.expect(jsonData.parameters).to.be.an(\"array\");\r",
+							"        pm.expect(jsonData).to.have.property(\"errors\");\r",
+							"        pm.expect(jsonData.errors).to.have.property(\"time\");\r",
+							"        pm.expect(jsonData.errors).to.have.property(\"bug\");\r",
+							"        pm.expect(jsonData.errors).to.have.property(\"report\");\r",
+							"        pm.expect(jsonData).to.have.property(\"results\");\r",
+							"        pm.expect(jsonData.results).to.be.a(\"number\");\r",
+							"        pm.expect(jsonData).to.have.property(\"paging\");\r",
+							"        pm.expect(jsonData.paging).to.have.property(\"current\");\r",
+							"        pm.expect(jsonData.paging.current).to.be.a(\"number\");\r",
+							"        pm.expect(jsonData.paging).to.have.property(\"total\");\r",
+							"        pm.expect(jsonData.paging.total).to.be.a(\"number\");\r",
+							"        pm.expect(jsonData).to.have.property(\"response\");\r",
+							"        pm.expect(jsonData.response).to.be.an(\"array\");\r",
+							"    });\r",
+							"} else {\r",
+							"    pm.test.skip(\"An error occured.\", pm.response.code, pm.response.text());\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-rapidapi-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/leagues?country={{country}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"leagues"
+					],
+					"query": [
+						{
+							"key": "country",
+							"value": "{{country}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List of Available Seasons",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"if (pm.response.code === 200) {\r",
+							"    pm.test(\"Verify the response structure\", function () {\r",
+							"        pm.expect(jsonData).to.have.property(\"get\");\r",
+							"        pm.expect(jsonData.get).to.be.a(\"string\");\r",
+							"        pm.expect(jsonData).to.have.property(\"parameters\");\r",
+							"        pm.expect(jsonData.parameters).to.be.an(\"array\");\r",
+							"        pm.expect(jsonData).to.have.property(\"errors\");\r",
+							"        pm.expect(jsonData.errors).to.be.an(\"array\");\r",
+							"        pm.expect(jsonData).to.have.property(\"results\");\r",
+							"        pm.expect(jsonData.results).to.be.a(\"number\");\r",
+							"        pm.expect(jsonData).to.have.property(\"paging\");\r",
+							"        pm.expect(jsonData.paging).to.have.property(\"current\");\r",
+							"        pm.expect(jsonData.paging.current).to.be.a(\"number\");\r",
+							"        pm.expect(jsonData.paging).to.have.property(\"total\");\r",
+							"        pm.expect(jsonData.paging.total).to.be.a(\"number\");\r",
+							"        pm.expect(jsonData).to.have.property(\"response\");\r",
+							"        pm.expect(jsonData.response).to.be.an(\"array\");\r",
+							"        pm.expect(jsonData.response.length).to.be.greaterThan(0);\r",
+							"        jsonData.response.forEach((item) => {\r",
+							"            pm.expect(item).to.be.a(\"number\");\r",
+							"        });\r",
+							"    });\r",
+							"\r",
+							"    pm.test(\"Verify the number of results equals the length of the response array\", function () {\r",
+							"        pm.expect(jsonData.results).to.eql(jsonData.response.length);\r",
+							"    });\r",
+							"} else if (pm.response.code === 204) {\r",
+							"    pm.test(\"Verify the structure of the response\", function () {\r",
+							"        pm.expect(jsonData).to.have.property(\"get\");\r",
+							"        pm.expect(jsonData.get).to.be.a(\"string\");\r",
+							"        pm.expect(jsonData).to.have.property(\"parameters\");\r",
+							"        pm.expect(jsonData.parameters).to.be.an(\"array\");\r",
+							"        pm.expect(jsonData).to.have.property(\"errors\");\r",
+							"        pm.expect(jsonData.errors).to.have.property(\"time\");\r",
+							"        pm.expect(jsonData.errors).to.have.property(\"bug\");\r",
+							"        pm.expect(jsonData.errors).to.have.property(\"report\");\r",
+							"        pm.expect(jsonData).to.have.property(\"results\");\r",
+							"        pm.expect(jsonData.results).to.be.a(\"number\");\r",
+							"        pm.expect(jsonData).to.have.property(\"paging\");\r",
+							"        pm.expect(jsonData.paging).to.have.property(\"current\");\r",
+							"        pm.expect(jsonData.paging.current).to.be.a(\"number\");\r",
+							"        pm.expect(jsonData.paging).to.have.property(\"total\");\r",
+							"        pm.expect(jsonData.paging.total).to.be.a(\"number\");\r",
+							"        pm.expect(jsonData).to.have.property(\"response\");\r",
+							"        pm.expect(jsonData.response).to.be.an(\"array\");\r",
+							"    });\r",
+							"} else {\r",
+							"    pm.test.skip(\"An error occured.\", pm.response.code, pm.response.text());\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-rapidapi-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/leagues/seasons",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"leagues",
+						"seasons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List of Rounds for a Season",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"if (pm.response.code === 200) {\r",
+							"    pm.test(\"Verify the response structure\", function () {\r",
+							"        pm.expect(jsonData).to.have.property(\"get\");\r",
+							"        pm.expect(jsonData.get).to.be.a(\"string\");\r",
+							"        pm.expect(jsonData).to.have.property(\"parameters\");\r",
+							"        pm.expect(jsonData.parameters).to.have.property(\"league\");\r",
+							"        pm.expect(jsonData.parameters.league).to.be.a(\"string\");\r",
+							"        pm.expect(jsonData.parameters).to.have.property(\"season\");\r",
+							"        pm.expect(jsonData.parameters.league).to.be.a(\"string\");\r",
+							"        pm.expect(jsonData).to.have.property(\"errors\");\r",
+							"        pm.expect(jsonData.errors).to.be.an(\"array\");\r",
+							"        pm.expect(jsonData).to.have.property(\"results\");\r",
+							"        pm.expect(jsonData.results).to.be.a(\"number\");\r",
+							"        pm.expect(jsonData).to.have.property(\"paging\");\r",
+							"        pm.expect(jsonData.paging).to.have.property(\"current\");\r",
+							"        pm.expect(jsonData.paging.current).to.be.a(\"number\");\r",
+							"        pm.expect(jsonData.paging).to.have.property(\"total\");\r",
+							"        pm.expect(jsonData.paging.total).to.be.a(\"number\");\r",
+							"        pm.expect(jsonData).to.have.property(\"response\");\r",
+							"        pm.expect(jsonData.response).to.be.an(\"array\");\r",
+							"        pm.expect(jsonData.response.length).to.be.greaterThan(0);\r",
+							"        jsonData.response.forEach((item) => {\r",
+							"            pm.expect(item).to.be.a(\"string\");\r",
+							"        });\r",
+							"    });\r",
+							"\r",
+							"    pm.test(\"Verify the response parameters match what was sent\", function () {\r",
+							"        pm.expect(jsonData.parameters.league).to.eql(pm.environment.get(\"league_id\"));\r",
+							"        pm.expect(jsonData.parameters.season).to.eql(pm.environment.get(\"season\").toString());\r",
+							"    });\r",
+							"\r",
+							"    pm.test(\"Verify the number of results equals the length of the response array\", function () {\r",
+							"        pm.expect(jsonData.results).to.eql(jsonData.response.length);\r",
+							"    });\r",
+							"} else if (pm.response.code === 204) {\r",
+							"    pm.test(\"Verify the structure of the response\", function () {\r",
+							"        pm.expect(jsonData).to.have.property(\"get\");\r",
+							"        pm.expect(jsonData.get).to.be.a(\"string\");\r",
+							"        pm.expect(jsonData).to.have.property(\"parameters\");\r",
+							"        pm.expect(jsonData.parameters).to.be.an(\"array\");\r",
+							"        pm.expect(jsonData).to.have.property(\"errors\");\r",
+							"        pm.expect(jsonData.errors).to.have.property(\"time\");\r",
+							"        pm.expect(jsonData.errors).to.have.property(\"bug\");\r",
+							"        pm.expect(jsonData.errors).to.have.property(\"report\");\r",
+							"        pm.expect(jsonData).to.have.property(\"results\");\r",
+							"        pm.expect(jsonData.results).to.be.a(\"number\");\r",
+							"        pm.expect(jsonData).to.have.property(\"paging\");\r",
+							"        pm.expect(jsonData.paging).to.have.property(\"current\");\r",
+							"        pm.expect(jsonData.paging.current).to.be.a(\"number\");\r",
+							"        pm.expect(jsonData.paging).to.have.property(\"total\");\r",
+							"        pm.expect(jsonData.paging.total).to.be.a(\"number\");\r",
+							"        pm.expect(jsonData).to.have.property(\"response\");\r",
+							"        pm.expect(jsonData.response).to.be.an(\"array\");\r",
+							"    });\r",
+							"} else {\r",
+							"    pm.test.skip(\"An error occured.\", pm.response.code, pm.response.text());\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-rapidapi-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/fixtures/rounds?league={{league_id}}&season={{season}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"fixtures",
+						"rounds"
+					],
+					"query": [
+						{
+							"key": "league",
+							"value": "{{league_id}}"
+						},
+						{
+							"key": "season",
+							"value": "{{season}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "No API Key in the Header",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Error message is 'Error/Missing application key.'\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Error/Missing application key.\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/live/odds?league={{league_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"live",
+						"odds"
+					],
+					"query": [
+						{
+							"key": "league",
+							"value": "{{league_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
