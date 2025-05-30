@@ -19,7 +19,7 @@ jobs:
       - name: Install Newman
         run: npm install -g newman newman-reporter-htmlextra
       - name: Run Postman Collection
-        run: newman run sample-collection.json -e environment.json -r htmlextra --reporter-htmlextra-export results.html
+        run: newman run project_collection.json -e project_environment.json -r htmlextra --reporter-htmlextra-export results.html
       - name: Save Report Output
         uses: actions/upload-artifact@v4
         with:
